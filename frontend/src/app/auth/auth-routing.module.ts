@@ -6,10 +6,10 @@ import { LoginComponent } from './components/login.component';
 const routes: Routes = [
   {
     path: '',
-    component: AuthComponent
+    component: LoginComponent
   },
   {
-    path: 'login',
+    path: 'register',
     component: LoginComponent
   }
 ];

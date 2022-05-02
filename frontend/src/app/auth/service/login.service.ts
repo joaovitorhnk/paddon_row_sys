@@ -7,12 +7,9 @@ import { AuthService } from "../auth.service";
 })
 export class LoginService extends AuthService {
 
-    public isAuthenticate = false;
+    public isAuthenticate = true;
 
-    constructor(
-        private route: Router,
-        private state: ActivatedRouteSnapshot 
-    ) {
+    constructor() {
         super();
     }
 
@@ -23,8 +20,6 @@ export class LoginService extends AuthService {
             return true;
         } else {
             console.log('Não deu')
-            console.log(this.state.paramMap);
-            this.route.navigateByUrl('/home/login');
             return false;
         }
 

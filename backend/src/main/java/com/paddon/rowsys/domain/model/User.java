@@ -1,34 +1,45 @@
 package com.paddon.rowsys.domain.model;
 
+import com.paddon.rowsys.utils.enums.Role;
+import com.paddon.rowsys.utils.enums.RoleEnumConverter;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity(name = "User")
-@Table(name = "user")
-@Getter @Setter @Builder @ToString
+@Entity
+@Table(name = "users")
+@Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Data
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = true)
-    private Product product;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+
+    @Convert(converter = RoleEnumConverter.class)
+    @Column(name = "role_id")
     private Role role;
-
 
 }

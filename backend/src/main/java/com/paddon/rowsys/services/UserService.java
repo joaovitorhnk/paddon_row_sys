@@ -8,9 +8,10 @@ public interface UserService {
 
     void saveUser(User user);
     List<User> findAllUsers();
-    User findByUser(User user);
+    User findByUsername(User user);
     void deleteUser(User user);
 
+    User findByUser(User user);
     User updateUser(Long id, User user);
 
 }
