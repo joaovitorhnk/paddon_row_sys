@@ -1,17 +1,15 @@
 package com.paddon.rowsys.services;
 
-import com.paddon.rowsys.domain.model.User;
+import com.paddon.rowsys.domain.dto.UserDTO;
+import com.paddon.rowsys.domain.model.UserModal;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    void saveUser(User user);
-    List<User> findAllUsers();
-    User findByUsername(User user);
-    void deleteUser(User user);
-
-    User findByUser(User user);
-    User updateUser(Long id, User user);
+    UserDTO saveUser(UserDTO user);
+    List<UserDTO> findAllUsers();
+    UserDTO findByUsername(String username);
 
 }

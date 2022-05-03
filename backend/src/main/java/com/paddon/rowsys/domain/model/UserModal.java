@@ -1,12 +1,10 @@
 package com.paddon.rowsys.domain.model;
 
 import com.paddon.rowsys.utils.enums.Role;
-import com.paddon.rowsys.utils.enums.RoleEnumConverter;
+import com.paddon.rowsys.utils.converters.RoleEnumConverter;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,14 +14,14 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Data
-public class User {
+public class UserModal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -37,6 +35,8 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "isEnabled", nullable = false)
+    private boolean isEnabled;
 
     @Convert(converter = RoleEnumConverter.class)
     @Column(name = "role_id")

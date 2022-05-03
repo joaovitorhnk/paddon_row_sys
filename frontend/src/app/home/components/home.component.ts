@@ -17,6 +17,13 @@ export class HomeComponent implements OnInit {
        this.service.findAllUser().subscribe(res => {
            console.log(res)
        })
+
+       this.service.findUser("admin").subscribe(register => {
+           console.log(register)
+           this.service.deleteUser(register.id).subscribe(response => {
+               console.log(response)
+           })
+       })
     }
 
     

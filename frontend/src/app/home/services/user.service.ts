@@ -10,19 +10,25 @@ import { Observable } from "rxjs";
 })
 export class UserService implements HomeService {
 
-    private baseUrl = "http://localhost:8080/api/users";
+    private baseUrl = "http://localhost:8080/users";
 
     constructor(
         private http: HttpClient
     ) {}
 
+
+    deleteUser(user: any): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/delete/` + user);
+    }
+
     findAllUser(): Observable<any> {
         return this.http.get(`${this.baseUrl}`);
     }
 
-    findUser(): User {
-        throw new Error("Method not implemented.");
+    findUser(username: string): Observable<any> {
+        return this.http.get(`${this.baseUrl}/` + username)
     }
+    
     
     
     

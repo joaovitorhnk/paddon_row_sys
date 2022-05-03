@@ -1,4 +1,6 @@
-package com.paddon.rowsys.utils.enums;
+package com.paddon.rowsys.utils.converters;
+
+import com.paddon.rowsys.utils.enums.Role;
 
 import javax.persistence.AttributeConverter;
 
@@ -11,9 +13,9 @@ public class RoleEnumConverter implements AttributeConverter<Role, Integer> {
             return null;
         } else {
             switch (role) {
-                case ADMIN_SYSTEM:
+                case ADMIN:
                     return 1;
-                case USER_COMMON:
+                case USER:
                     return 2;
                 default:
                     throw new IllegalArgumentException(role + " not supported.");
@@ -28,9 +30,9 @@ public class RoleEnumConverter implements AttributeConverter<Role, Integer> {
         } else {
             switch (integer) {
                 case 1:
-                    return Role.ADMIN_SYSTEM;
+                    return Role.ADMIN;
                 case 2:
-                    return Role.USER_COMMON;
+                    return Role.USER;
                 default:
                     throw new IllegalArgumentException(integer + " not supported.");
             }

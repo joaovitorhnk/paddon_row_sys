@@ -3,9 +3,10 @@ import { User } from "../model/user.model";
 
 export interface HomeService {
 
-    findUser(): User
+    findUser(username: string): Observable<any>
 
     findAllUser(): Observable<any>
     
+    deleteUser(user: any): Observable<any> 
 
 }
