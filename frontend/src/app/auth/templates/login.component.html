@@ -1,1 +1,32 @@
-<h1>Login</h1>
+<div class="container">
+
+    <form  [formGroup]="form" class="form">
+
+        <div class="row">
+
+            <div class="col-8">
+                <img src="../../../assets/images/logo.jpeg" width="500" height="200">
+            </div>
+
+            <div class="col-4">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" aria-describedby="Username"
+                    formControlName="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" 
+                   formControlName="password">
+                </div>
+
+                <button type="button" (click)="onSubmit(form)" class="btn btn-primary">Submit</button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

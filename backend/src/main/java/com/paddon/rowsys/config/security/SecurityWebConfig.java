@@ -50,7 +50,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // TODO Auto-generated method stub
-
+        System.out.println("Authentenciation: " + auth);
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }

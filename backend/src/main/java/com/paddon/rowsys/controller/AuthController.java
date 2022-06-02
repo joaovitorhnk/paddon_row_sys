@@ -8,10 +8,12 @@ import com.paddon.rowsys.repositories.UserRepository;
 import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -48,7 +50,13 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        String role = "";
+
+        for(GrantedAuthority auth : userDetails.getAuthorities()) {
+           role = auth.getAuthority().toString();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new JwtResponse(jwt, role.toString()));
     }
 
 }

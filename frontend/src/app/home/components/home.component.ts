@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/model/user.model";
 import { HomeService } from "../home.service";
 import { UserService } from "../services/user.service";
 
@@ -14,16 +15,11 @@ export class HomeComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-       this.service.findAllUser().subscribe(res => {
-           console.log(res)
-       })
-
-       this.service.findUser("admin").subscribe(register => {
-           console.log(register)
-           this.service.deleteUser(register.id).subscribe(response => {
-               console.log(response)
-           })
-       })
+      this.service.findAllUser().subscribe((users: Array<User>) => {
+        users.forEach((e: User, index: number) => {
+            console.log(e.username)
+        })
+      })
     }
 
     

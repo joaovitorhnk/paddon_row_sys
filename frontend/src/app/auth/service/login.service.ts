@@ -1,28 +1,55 @@
-import { Injectable } from "@angular/core";
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import { Inject, Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Router } from "@angular/router";
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { AuthService } from "../auth.service";
+import { Login, ResponseLogin } from "../model/login.model";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class LoginService extends AuthService {
 
-    public isAuthenticate = true;
+    public isLogged;
+    private userSubject: BehaviorSubject<any>;
+    public user: Observable<any> | undefined;
+    
+    isLogin = false;
+    roleAs: string = ''
 
-    constructor() {
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+    ) {
         super();
+        this.isLogged = false;
+        this.userSubject = new BehaviorSubject<any>(localStorage.getItem('token'));
+        this.user = this.userSubject.asObservable();
     }
 
-    login(): boolean {
+    public get userValue(): any {
+        return this.userSubject.value;
+    }
+    
 
-        if(this.isAuthenticate) {
-            console.log('Fodão')
-            return true;
-        } else {
-            console.log('Não deu')
-            return false;
-        }
+    login(login: Login): Observable<any> {
+        return this.http.post<any>(`${environment.api_url}/auth/signin`, login).pipe(
+            map((res: ResponseLogin) => {
+                localStorage.setItem('token', `${res.tokenType} ${res.accessToken}`)
+                localStorage.setItem('role', res.role)
+            })
+        )
+    }
 
+    isAuthenticate() {
+        const token = localStorage.getItem('token')
+        return token
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
     }
 
     

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { HomeComponent } from './home/components/home.component';
 import { UserService } from './home/services/user.service';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { InterceptorModule } from './shared/api/interceptor.module';
 
 @NgModule({
@@ -20,7 +20,8 @@ import { InterceptorModule } from './shared/api/interceptor.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     TooltipModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    InterceptorModule
   ],
   providers: [
     UserService

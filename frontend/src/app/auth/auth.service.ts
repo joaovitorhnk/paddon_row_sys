@@ -1,5 +1,10 @@
+import { Observable } from "rxjs";
+import { Login, ResponseLogin } from "./model/login.model";
+
 export abstract class AuthService {
 
-    abstract login(): boolean;
+    abstract login(login: Login): Observable<any>;
+
+    abstract isAuthenticate(): any;
 
 }

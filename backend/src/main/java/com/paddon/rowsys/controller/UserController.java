@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,6 +25,12 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
+
+
+    @GetMapping("hello")
+    public String getHello() {
+        return "Hello";
+    }
 
     @GetMapping("")
     public ResponseEntity<List<UserDTO>> findAllUser() {

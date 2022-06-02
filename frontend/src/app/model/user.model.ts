@@ -1,5 +1,11 @@
 export interface User {
     username: string
     password: string
-    role: string
+    role: Role,
+    enabled: boolean
+}
+
+enum Role {
+    ADMIN,
+    USER
 }
