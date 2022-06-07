@@ -15,11 +15,9 @@ export class HomeComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.service.findAllUser().subscribe((users: Array<User>) => {
-        users.forEach((e: User, index: number) => {
-            console.log(e.username)
-        })
-      })
+
+    //   this.service.logout();
+      
     }
 
     

@@ -33,7 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModal user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Not Found User"));
-
         return UserMapper.userPrincipal(user);
     }
 }

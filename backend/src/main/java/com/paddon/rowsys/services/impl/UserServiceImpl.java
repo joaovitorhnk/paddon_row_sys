@@ -61,4 +61,12 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.toDto(responseUser);
     }
 
+    @Override
+    public UserDTO deleteUser(String username) {
+        UserModal userModal = this.userRepository.findByUsername(username).get();
+        this.userRepository.delete(userModal);
+        return this.userMapper.toDto(userModal);
+    }
+
+
 }

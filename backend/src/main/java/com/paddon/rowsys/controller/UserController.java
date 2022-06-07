@@ -1,18 +1,13 @@
 package com.paddon.rowsys.controller;
 
 import com.paddon.rowsys.domain.dto.UserDTO;
-import com.paddon.rowsys.domain.mapper.UserMapper;
-import com.paddon.rowsys.domain.model.UserModal;
 import com.paddon.rowsys.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -23,31 +18,32 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private UserMapper userMapper;
-
-
-    @GetMapping("hello")
-    public String getHello() {
-        return "Hello";
-    }
-
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<UserDTO>> findAllUser() {
         List<UserDTO> users = this.userService.findAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserDTO findUserByUsername(@PathVariable String username) {
         return this.userService.findByUsername(username);
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/create").toUriString());
         UserDTO userSave = this.userService.saveUser(userDTO);
-        return  ResponseEntity.created(uri).body(userSave);
+        return  ResponseEntity.ok().body(userSave);
     }
+
+    @DeleteMapping("{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable String username) {
+        UserDTO userDTO = this.userService.deleteUser(username);
+        return ResponseEntity.ok().body(userDTO);
+    }
+
 
 }

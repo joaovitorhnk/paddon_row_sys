@@ -38,24 +38,20 @@ public class AuthController {
     @Autowired
     JwtProvider jwtProvider;
 
-    @PostMapping("/signin")
+    @PostMapping("/signing")
     public ResponseEntity<JwtResponse> authenticateUser(@RequestBody UserDTO loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
-
         UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
         String role = "";
-
         for(GrantedAuthority auth : userDetails.getAuthorities()) {
            role = auth.getAuthority().toString();
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(new JwtResponse(jwt, role.toString()));
     }
 

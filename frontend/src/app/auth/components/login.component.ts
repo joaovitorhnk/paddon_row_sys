@@ -24,8 +24,7 @@ export class LoginComponent {
     constructor(
         private service: AuthService,
         private _buildForm: FormBuilder,
-        private route: Router,
-        private interceptor: Interceptor
+        private router: Router
     )
     {
         this.form = this._buildForm.group({
@@ -42,8 +41,15 @@ export class LoginComponent {
         }
 
         this.service.login(login).subscribe((res: ResponseLogin) => {
-            const is = this.service.isAuthenticate()
-            console.log(is)
+        
+            if(res.role === "ROLE_ADMIN") {
+                this.router.navigateByUrl('admin')
+            }
+
+            if(res.role === "ROLE_USER") {
+                this.router.navigateByUrl('home')
+            }
+
         })
 
     }

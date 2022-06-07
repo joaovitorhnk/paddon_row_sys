@@ -9,4 +9,6 @@ export interface HomeService {
     
     deleteUser(user: any): Observable<any> 
 
+    logout(): void
+
 }

@@ -22,8 +22,6 @@ export class Interceptor implements HttpInterceptor {
 
     localStorage.removeItem('token')
 
-    console.log('Request: ', request)
-
     return next.handle(request);
   }
 
