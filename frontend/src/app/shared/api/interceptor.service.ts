@@ -20,8 +20,6 @@ export class Interceptor implements HttpInterceptor {
       }
     });
 
-    localStorage.removeItem('token')
-
     return next.handle(request);
   }
 
